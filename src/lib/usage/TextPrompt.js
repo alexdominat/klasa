@@ -190,7 +190,7 @@ class TextPrompt {
 		if (this.typing) this.message.channel.stopTyping();
 		const possibleAbortOptions = this.message.language.get('MONITOR_COMMAND_HANDLER_POSSIBILITIES');
 		const message = await this.prompt(
-			this.message.language.get('MONITOR_COMMAND_HANDLER_REPROMPT', `<@!${this.message.author.id}>`, prompt, this.time / 1000, possibleAbortOptions)
+			this.message.language.get('MONITOR_COMMAND_HANDLER_REPROMPT', `<@!${this.target.id}>`, prompt, this.time / 1000, possibleAbortOptions)
 		);
 
 		this.responses.set(message.id, message);
@@ -218,7 +218,7 @@ class TextPrompt {
 		let message;
 		const possibleCancelOptions = this.message.language.get('MONITOR_COMMAND_HANDLER_REPEATING_POSSIBLITIES');
 		try {
-			message = await this.message.prompt(
+			message = await this.prompt(
 				this.message.language.get('MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT', `<@!${this.message.author.id}>`, this._currentUsage.possibles[0].name, this.time / 1000, possibleCancelOptions),
 				this.time
 			);
