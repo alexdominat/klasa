@@ -110,10 +110,6 @@ module.exports = {
  * @see {@link https://discord.js.org/#/docs/main/master/class/DMChannel}
  */
 /**
- * @external GroupDMChannel
- * @see {@link https://discord.js.org/#/docs/main/master/class/GroupDMChannel}
- */
-/**
  * @external Guild
  * @see {@link https://discord.js.org/#/docs/main/master/class/Guild}
  */
@@ -208,4 +204,8 @@ module.exports = {
 /**
  * @external Snowflake
  * @see {@link https://discord.js.org/#/docs/main/stable/typedef/Snowflake}
+ */
+/**
+ * @external ExecOptions
+ * @see {@link https://nodejs.org/dist/latest-v10.x/docs/api/child_process.html#child_process_child_process_exec_command_options_callback}
  */

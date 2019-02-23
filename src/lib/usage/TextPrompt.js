@@ -188,16 +188,14 @@ class TextPrompt {
 	async reprompt(prompt) {
 		this._prompted++;
 		if (this.typing) this.message.channel.stopTyping();
-		const possibleAbortOptions = this.message.language.get('MONITOR_COMMAND_HANDLER_POSSIBILITIES');
+		const possibleAbortOptions = this.message.language.get('TEXT_PROMPT_ABORT_OPTIONS');
 		const message = await this.prompt(
 			this.message.language.get('MONITOR_COMMAND_HANDLER_REPROMPT', `<@!${this.target.id}>`, prompt, this.time / 1000, possibleAbortOptions)
 		);
 
 		this.responses.set(message.id, message);
 
-		if (possibleAbortOptions.includes(message.content.toLowerCase())) {
-			throw this.message.language.get('MONITOR_COMMAND_HANDLER_ABORTED');
-		}
+		if (possibleAbortOptions.includes(message.content.toLowerCase())) throw this.message.language.get('MONITOR_COMMAND_HANDLER_ABORTED');
 
 		if (this.typing) this.message.channel.startTyping();
 		this.args[this.args.lastIndexOf(null)] = message.content;
@@ -216,7 +214,7 @@ class TextPrompt {
 	async repeatingPrompt() {
 		if (this.typing) this.message.channel.stopTyping();
 		let message;
-		const possibleCancelOptions = this.message.language.get('MONITOR_COMMAND_HANDLER_REPEATING_POSSIBLITIES');
+		const possibleCancelOptions = this.message.language.get('TEXT_PROMPT_ABORT_OPTIONS');
 		try {
 			message = await this.prompt(
 				this.message.language.get('MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT', `<@!${this.message.author.id}>`, this._currentUsage.possibles[0].name, this.time / 1000, possibleCancelOptions)
@@ -404,7 +402,7 @@ class TextPrompt {
 			const quote = quotes.find(qt => qt.includes(content[i]));
 			if (quote) {
 				const qts = quote.split('');
-				while (i + 1 < content.length && (content[i] === '\\' || !qts.includes(content[i + 1]))) current += content[++i] !== '\\' ? content[i] : '';
+				while (i + 1 < content.length && (content[i] === '\\' || !qts.includes(content[i + 1]))) current += content[++i] === '\\' && qts.includes(content[i + 1]) ? '' : content[i];
 				i++;
 				args.push(current);
 			} else {

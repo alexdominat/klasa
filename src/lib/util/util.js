@@ -17,7 +17,7 @@ class Util {
 	 */
 
 	/**
-	 * @typedef {(string|*)} Stringable
+	 * @typedef {(string|*)} Stringifible
 	 */
 
 	/**
@@ -34,7 +34,7 @@ class Util {
 	 * Makes a codeblock markup string
 	 * @since 0.0.1
 	 * @param {string} lang The codeblock language
-	 * @param {Stringable} expression The expression to be wrapped in the codeblock
+	 * @param {Stringifible} expression The expression to be wrapped in the codeblock
 	 * @returns {string}
 	 */
 	static codeBlock(lang, expression) {
@@ -321,23 +321,10 @@ class Util {
 }
 
 /**
- * @typedef {Object} ExecOptions
- * @property {string} [cwd=process.cwd()] Current working directory of the child process
- * @property {Object} [env={}] Environment key-value pairs
- * @property {string} [encoding='utf8'] encoding to use
- * @property {string} [shell=os === unix ? '/bin/sh' : process.env.ComSpec] Shell to execute the command with
- * @property {number} [timeout=0] The maximum execution time
- * @property {number} [maxBuffer=200*1024] Largest amount of data in bytes allowed on stdout or stderr. If exceeded, the child process is terminated
- * @property {string|number} [killSignal='SIGTERM'] The kill signal
- * @property {number} [uid] Sets the user identity of the process
- * @property {number} [gid] Sets the group identity of the process
- */
-
-/**
  * Promisified version of child_process.exec for use with await
  * @since 0.3.0
  * @param {string} command The command to run
- * @param {ExecOptions} [options] The options to pass to exec
+ * @param {external:ExecOptions} [options] The options to pass to exec
  * @returns {Promise<{ stdout: string, stderr: string }>}
  * @method
  * @static
